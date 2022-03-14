@@ -6,17 +6,17 @@
     <test name="TestNG-chrome">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="Runner.Runner"/>
+            <class name="Runner.Tests1Runner"/>
         </classes>
     </test>
 
 
-<!--    <test name="TestNG-edge">-->
-<!--        <parameter name="browser" value="edge"></parameter>-->
-<!--        <classes>-->
-<!--            <class name="Runner.Runner"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="TestNG-edge">
+        <parameter name="browser" value="edge"></parameter>
+        <classes>
+            <class name="Runner.Tests2Runner"/>
+        </classes>
+    </test>
 
 
 </suite>

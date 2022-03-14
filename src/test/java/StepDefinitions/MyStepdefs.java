@@ -1,35 +1,67 @@
 package StepDefinitions;
 
 
-import Runner.Runner;
+import Steps.Base;
+import Steps.MySteps;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import org.openqa.selenium.By;
+import gherkin.ast.Feature;
+import utils.DataWorkbookManager;
+import utils.ExcelReader;
+import utils.TestConstants;
 
-public class MyStepdefs extends Base{
-Runner runner=new Runner();
+
+public class MyStepdefs{
+    MySteps mySteps = new MySteps();
+    DataWorkbookManager dataWorkbookManager = new DataWorkbookManager();
+    Base base=new Base();
+
+
+    ThreadLocal<String> dataWorkbookName = new ThreadLocal<>();
+    ThreadLocal<String> dataWorkSheetName = new ThreadLocal<>();
+
     @Before
     public void openBrowser() {
-        driver = Base.openBrowser(browser);
+        mySteps.createDriverInstance();
     }
 
     @After
     public void closeBrowser() {
-        driver.quit();
+        mySteps.driver().quit();
+    }
+
+    @Given("^user is ready with Test Data excel \"([^\"]*)\" and sheet \"([^\"]*)\"$")
+    public void userIsReadyWithTestDataExcelAndSheet(String strWorkBook, String strWorkSheet) throws Throwable {
+
+        dataWorkbookName.set(strWorkBook);
+        dataWorkSheetName.set(strWorkSheet);
+        if (base.getBrowser().equalsIgnoreCase("chrome")) {
+            dataWorkbookManager.setReader(new ExcelReader(TestConstants.DATA_FILE_PATH.replace("device\\workbookname", "Chrome\\" + dataWorkbookName.get()), "xlsx"));
+        } else if (base.getBrowser().equalsIgnoreCase("edge")){
+            dataWorkbookManager.setReader(new ExcelReader(TestConstants.DATA_FILE_PATH.replace("device\\workbookname", "Edge\\" + dataWorkbookName.get()), "xlsx"));
+        }
+        dataWorkbookManager.setWorkSheet(dataWorkbookManager.getReader().getSheet(dataWorkSheetName.get()));
     }
 
 
     @Given("^user launch url$")
     public void userLaunchUrl() {
-        driver.get("https://conv.rakbankonline.ae/IBRetailTest/auth");
+        mySteps.launchURL();
     }
 
 
-    @Then("^user enter username$")
-    public void userEnterUsername() {
-        driver.findElement(By.xpath("//input[@data-testid='username-input']")).sendKeys("UserName");
-
+    @Then("^user login using username and password using dataKey as \"([^\"]*)\"$")
+    public void userEnterUsernameAndPasswordUsingDataKeyAs(String dataKey) throws Throwable {
+        mySteps.loginUsing(dataKey);
     }
+
+    @Then("^user navigate to fund transfer$")
+    public void userNavigateToFundTransfer() {
+        mySteps.navigateToFundTransfer();
+    }
+
+
 }

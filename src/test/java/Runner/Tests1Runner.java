@@ -1,6 +1,6 @@
 package Runner;
 
-import StepDefinitions.Base;
+import Steps.Base;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import cucumber.api.testng.CucumberFeatureWrapper;
@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 
 
 @CucumberOptions(
-        features = "src/test/FeatureFiles/Sample.feature",
+        features = "src/test/FeatureFiles/Tests1.feature",
         glue = {"StepDefinitions"},
         format = {
                 "pretty",
@@ -17,7 +17,7 @@ import org.testng.annotations.*;
         },
         monochrome = true
 )
-public class Runner extends AbstractTestNGCucumberTests {
+public class Tests1Runner extends AbstractTestNGCucumberTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;
 
@@ -35,7 +35,6 @@ public class Runner extends AbstractTestNGCucumberTests {
 
     @Test(dataProvider = "provideFeatures", alwaysRun = true)
     public void executeFeature(CucumberFeatureWrapper cucumberFeature) {
-
         this.testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
     }
 
@@ -45,11 +44,13 @@ public class Runner extends AbstractTestNGCucumberTests {
     }
 
 
-    Base base=new Base();
-    @BeforeTest(alwaysRun = true)
+    Base base = new Base();
+
+    @BeforeClass(alwaysRun = true)
     @Parameters({"browser"})
-    public void setBrowser(String browser) {
-        base.browser=browser;
+    public void setBrowserName(String browser) {
+        base.setBrowser(browser);
     }
+
 
 }
