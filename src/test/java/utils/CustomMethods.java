@@ -33,10 +33,9 @@ public class CustomMethods extends Base {
     }
 
 
-    public void waitForElement(String elementLocator,int Seconds)
-    {
+    public void waitForElement(String elementLocator,int Seconds) throws IOException {
         WebDriverWait wait=new WebDriverWait(driver(), Seconds);
-        wait.until(ExpectedConditions.visibilityOf(driver().findElement(By.xpath(elementLocator))));
+        wait.until(ExpectedConditions.visibilityOf(driver().findElement(getElementLocatorFromProperties(elementLocator))));
     }
 
 

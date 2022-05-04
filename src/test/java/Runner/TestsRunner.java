@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 
 
 @CucumberOptions(
-        features = "src/test/FeatureFiles/Tests1.feature",
+        features = "src/test/FeatureFiles/Tests.feature",
         glue = {"StepDefinitions"},
         format = {
                 "pretty",
@@ -17,9 +17,11 @@ import org.testng.annotations.*;
         },
         monochrome = true
 )
-public class Tests1Runner extends AbstractTestNGCucumberTests {
+public class TestsRunner extends AbstractTestNGCucumberTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;
+
+
 
 
     @BeforeClass(alwaysRun = true)
@@ -38,6 +40,7 @@ public class Tests1Runner extends AbstractTestNGCucumberTests {
         this.testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
     }
 
+
     @DataProvider
     public Object[][] provideFeatures() {
         return this.testNGCucumberRunner.provideFeatures();
@@ -51,6 +54,5 @@ public class Tests1Runner extends AbstractTestNGCucumberTests {
     public void setBrowserName(String browser) {
         base.setBrowser(browser);
     }
-
 
 }

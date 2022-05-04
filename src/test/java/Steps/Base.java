@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import utils.CustomMethods;
 import utils.DataWorkbookManager;
@@ -38,8 +39,13 @@ public class Base {
             WebDriverManager.chromedriver().setup();
             this.driver.set(new ChromeDriver());
         } else if (getBrowser().equalsIgnoreCase("edge")) {
-            WebDriverManager.edgedriver().setup();
+//            WebDriverManager.edgedriver().setup();
+            System.setProperty("webdriver.edge.driver","C:\\msedgedriver.exe");
             this.driver.set(new EdgeDriver());
+        } else if (getBrowser().equalsIgnoreCase("firefox")) {
+//            WebDriverManager.firefoxdriver().setup();
+            System.setProperty("webdriver.gecko.driver","C:\\geckodriver.exe");
+            this.driver.set(new FirefoxDriver());
         } else {
             Assert.fail(getBrowser() + " is not supported");
         }
@@ -53,8 +59,6 @@ public class Base {
     }
 
 
-
-
     public By getElementLocatorFromProperties(String elementLocatorName) throws IOException {
         By elementLocator = null;
         String temp = readPropertiesFile.returnPropertyValue(elementLocatorName);
@@ -65,23 +69,22 @@ public class Base {
         } else if (temp.startsWith("className")) {
             temp = temp.replace("className=", "");
             elementLocator = By.className(temp);
-        }else if (temp.startsWith("name")) {
+        } else if (temp.startsWith("name")) {
             temp = temp.replace("name=", "");
             elementLocator = By.name(temp);
-        }else if (temp.startsWith("tagName")) {
+        } else if (temp.startsWith("tagName")) {
             temp = temp.replace("tagName=", "");
             elementLocator = By.tagName(temp);
-        }else if (temp.startsWith("id")) {
+        } else if (temp.startsWith("id")) {
             temp = temp.replace("id=", "");
             elementLocator = By.id(temp);
-        }else if (temp.startsWith("linkText")) {
+        } else if (temp.startsWith("linkText")) {
             temp = temp.replace("linkText=", "");
             elementLocator = By.partialLinkText(temp);
-        }else if (temp.startsWith("partialLinkText")) {
+        } else if (temp.startsWith("partialLinkText")) {
             temp = temp.replace("partialLinkText=", "");
             elementLocator = By.partialLinkText(temp);
-        }
-        else
+        } else
             Assert.fail("This funtion only supports {xpath, className, name, tagName, id, linkText, partialLinkText}");
 
         return elementLocator;

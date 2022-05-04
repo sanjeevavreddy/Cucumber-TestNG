@@ -9,6 +9,8 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import gherkin.ast.Feature;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import utils.DataWorkbookManager;
 import utils.ExcelReader;
 import utils.TestConstants;
@@ -42,6 +44,8 @@ public class MyStepdefs{
             dataWorkbookManager.setReader(new ExcelReader(TestConstants.DATA_FILE_PATH.replace("device\\workbookname", "Chrome\\" + dataWorkbookName.get()), "xlsx"));
         } else if (base.getBrowser().equalsIgnoreCase("edge")){
             dataWorkbookManager.setReader(new ExcelReader(TestConstants.DATA_FILE_PATH.replace("device\\workbookname", "Edge\\" + dataWorkbookName.get()), "xlsx"));
+        }else if (base.getBrowser().equalsIgnoreCase("firefox")){
+            dataWorkbookManager.setReader(new ExcelReader(TestConstants.DATA_FILE_PATH.replace("device\\workbookname", "Firefox\\" + dataWorkbookName.get()), "xlsx"));
         }
         dataWorkbookManager.setWorkSheet(dataWorkbookManager.getReader().getSheet(dataWorkSheetName.get()));
     }
@@ -58,10 +62,13 @@ public class MyStepdefs{
         mySteps.loginUsing(dataKey);
     }
 
-    @Then("^user navigate to fund transfer$")
-    public void userNavigateToFundTransfer() {
-        mySteps.navigateToFundTransfer();
+
+    @Given("^user launch browser$")
+    public void userLaunchBrowser() {
+
+        System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+
+        WebDriver webDriver=new ChromeDriver();
+
     }
-
-
 }
