@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import utils.CustomMethods;
 import utils.DataWorkbookManager;
 import utils.ReadPropertiesFile;
 import utils.TestConstants;

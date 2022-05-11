@@ -10,18 +10,18 @@
         </classes>
     </test>
 
-    <test name="TestNG-edge">
-        <parameter name="browser" value="edge"></parameter>
-        <classes>
-            <class name="Runner.TestsRunner"/>
-        </classes>
-    </test>
+<!--    <test name="TestNG-edge">-->
+<!--        <parameter name="browser" value="edge"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="Runner.TestsRunner"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-<test name="TestNG-firefox">
-        <parameter name="browser" value="firefox"></parameter>
-        <classes>
-            <class name="Runner.TestsRunner"/>
-        </classes>
-    </test>
+<!--<test name="TestNG-firefox">-->
+<!--        <parameter name="browser" value="firefox"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="Runner.TestsRunner"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 </suite>
