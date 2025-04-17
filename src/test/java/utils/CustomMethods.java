@@ -1,24 +1,14 @@
 package utils;
 
-import Steps.Base;
-import cucumber.api.Scenario;
-import gherkin.ast.Feature;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.Response;
+import Steps.DriverManager;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class CustomMethods extends Base {
+public class CustomMethods extends DriverManager {
 
     private int stepCounter;
     private static ThreadLocal<Integer> seleniumCounter = ThreadLocal.withInitial(() -> {
@@ -34,13 +24,13 @@ public class CustomMethods extends Base {
 
 
     public void waitForElement(String elementLocator,int Seconds) throws IOException {
-        WebDriverWait wait=new WebDriverWait(driver(), Seconds);
+        WebDriverWait wait=new WebDriverWait(driver(), Duration.ofSeconds(Seconds));
         wait.until(ExpectedConditions.visibilityOf(driver().findElement(getElementLocatorFromProperties(elementLocator))));
     }
 
 
     public void waitForElementAndClick(String elementLocator,int Seconds) throws IOException {
-        WebDriverWait wait=new WebDriverWait(driver(), Seconds);
+        WebDriverWait wait=new WebDriverWait(driver(),  Duration.ofSeconds(Seconds));
         wait.until(ExpectedConditions.visibilityOf(driver().findElement(getElementLocatorFromProperties(elementLocator)))).click();
     }
 

@@ -9,6 +9,12 @@
             <class name="Runner.TestsRunner"/>
         </classes>
     </test>
+    <test name="TestNG-chrome2">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="Runner.TestsRunner"/>
+        </classes>
+    </test>
 
 <!--    <test name="TestNG-edge">-->
 <!--        <parameter name="browser" value="edge"></parameter>-->

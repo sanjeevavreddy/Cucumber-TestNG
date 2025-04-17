@@ -1,17 +1,18 @@
 package Steps;
 
-import gherkin.lexer.Pa;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import utils.CustomMethods;
 import utils.TestConstants;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class MySteps extends Base {
+public class LoginPage extends DriverManager {
     CustomMethods customMethods = new CustomMethods();
 
-    public void launchURL() {
+
+    public void launchURL() throws InterruptedException {
         driver().manage().timeouts().implicitlyWait(TestConstants.IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
         driver().get(TestConstants.URL);
     }
@@ -21,17 +22,19 @@ public class MySteps extends Base {
         String UserName = dataWorkbookManager.getReader().getRowDataAsMap(dataWorkbookManager.getWorkSheet(), dataKey).get("USER_ID");
         String Password = dataWorkbookManager.getReader().getRowDataAsMap(dataWorkbookManager.getWorkSheet(), dataKey).get("PASSWORD");
 
-        driver().findElement(By.xpath("//*[text()='Hello, Sign in']")).click();
+        System.out.println(UserName);
+        System.out.println(Password);
+//        driver().findElement(By.xpath("//*[text()='Hello, Sign in']")).click();
+//
+//        driver().findElement(By.name("email")).sendKeys(UserName);
+//
+//        driver().findElement(By.id("continue")).click();
+//
+//        driver().findElement(By.name("password")).sendKeys(Password);
 
-        driver().findElement(By.name("email")).sendKeys(UserName);
-
-        driver().findElement(By.id("continue")).click();
-
-        driver().findElement(By.name("password")).sendKeys(Password);
-
-        driver().findElement(By.id("signInSubmit")).click();
-
-        customMethods.waitForElement("twotabsearchtextbox", 20);
+//        driver().findElement(By.id("signInSubmit")).click();
+//
+//        customMethods.waitForElement("twotabsearchtextbox", 20);
 
     }
 

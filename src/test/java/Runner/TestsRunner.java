@@ -1,58 +1,28 @@
 package Runner;
 
-import Steps.Base;
-import cucumber.api.CucumberOptions;
-import cucumber.api.testng.AbstractTestNGCucumberTests;
-import cucumber.api.testng.CucumberFeatureWrapper;
-import cucumber.api.testng.TestNGCucumberRunner;
+import Steps.DriverManager;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.*;
 
 
 @CucumberOptions(
-        features = "src/test/FeatureFiles/Tests.feature",
+        features = "src/test/FeatureFiles",
         glue = {"StepDefinitions"},
-        format = {
+        plugin = {
                 "pretty",
-                "html:target/cucumber-reports/cucumber-pretty"
+                "html:target/cucumber-reports/cucumber-pretty/report.html"
         },
         monochrome = true
 )
 public class TestsRunner extends AbstractTestNGCucumberTests {
 
-    private TestNGCucumberRunner testNGCucumberRunner;
-
-
-
-
-    @BeforeClass(alwaysRun = true)
-    public void setUpClass() {
-        this.testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void tearDownClass() {
-        this.testNGCucumberRunner.finish();
-
-    }
-
-    @Test(dataProvider = "provideFeatures", alwaysRun = true)
-    public void executeFeature(CucumberFeatureWrapper cucumberFeature) {
-        this.testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
-    }
-
-
-    @DataProvider
-    public Object[][] provideFeatures() {
-        return this.testNGCucumberRunner.provideFeatures();
-    }
-
-
-    Base base = new Base();
+    DriverManager driverManager = new DriverManager();
 
     @BeforeClass(alwaysRun = true)
     @Parameters({"browser"})
     public void setBrowserName(String browser) {
-        base.setBrowser(browser);
+        driverManager.setBrowser(browser);
     }
 
 }

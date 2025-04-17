@@ -15,36 +15,36 @@ import utils.TestConstants;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class Base {
+public class DriverManager {
 
     DataWorkbookManager dataWorkbookManager = new DataWorkbookManager();
     ReadPropertiesFile readPropertiesFile = new ReadPropertiesFile();
 
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    private static ThreadLocal<String> browsers = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<String> browsers = new ThreadLocal<>();
 
 
     public void setBrowser(String browser) {
-        this.browsers.set(browser);
+        browsers.set(browser);
     }
 
     public String getBrowser() {
-        return this.browsers.get();
+        return browsers.get();
     }
 
     public void createDriverInstance() {
         if (getBrowser().equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
-            this.driver.set(new ChromeDriver());
+            driver.set(new ChromeDriver());
         } else if (getBrowser().equalsIgnoreCase("edge")) {
 //            WebDriverManager.edgedriver().setup();
             System.setProperty("webdriver.edge.driver","C:\\msedgedriver.exe");
-            this.driver.set(new EdgeDriver());
+            driver.set(new EdgeDriver());
         } else if (getBrowser().equalsIgnoreCase("firefox")) {
 //            WebDriverManager.firefoxdriver().setup();
             System.setProperty("webdriver.gecko.driver","C:\\geckodriver.exe");
-            this.driver.set(new FirefoxDriver());
+            driver.set(new FirefoxDriver());
         } else {
             Assert.fail(getBrowser() + " is not supported");
         }
@@ -54,7 +54,7 @@ public class Base {
     }
 
     public WebDriver driver() {
-        return this.driver.get();
+        return driver.get();
     }
 
 

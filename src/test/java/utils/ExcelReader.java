@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Sane=jeev Reddy
+ * @author Sanjeev Reddy
  * First Row of every excel sheet = column name
  * First Column of every sheet = Scenario Name(or the key to fetch the data) There should not be any blank row in between data
  */
@@ -31,7 +31,7 @@ public class ExcelReader {
      */
     public ExcelReader(String filePath, String fileType) {
         try {
-            fis = new FileInputStream(new File(filePath));
+            fis = new FileInputStream(filePath);
             if (fileType.equalsIgnoreCase("xls")) {
                 workbook = new HSSFWorkbook(fis);
             } else {
