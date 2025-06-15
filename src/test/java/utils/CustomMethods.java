@@ -1,12 +1,16 @@
 package utils;
 
-import Steps.DriverManager;
+import DriverManager.DriverManager;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class CustomMethods extends DriverManager {
 
@@ -19,7 +23,7 @@ public class CustomMethods extends DriverManager {
 
     public void setImplicitTimeout(int Seconds)
     {
-        driver().manage().timeouts().implicitlyWait(Seconds, TimeUnit.SECONDS);
+        driver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Seconds));
     }
 
 
@@ -34,31 +38,46 @@ public class CustomMethods extends DriverManager {
         wait.until(ExpectedConditions.visibilityOf(driver().findElement(getElementLocatorFromProperties(elementLocator)))).click();
     }
 
-//    public void takescreenshot(RemoteWebDriver driver) throws IOException {
-//        TakesScreenshot takesScreenshot = driver;
-//
-//        ++this.stepCounter;
-//        int seleniumStepCount = getSeleniumCounter();
-//        seleniumCounter.set(seleniumStepCount + 1);
-//
-//        File takenScreenShot = takesScreenshot.getScreenshotAs(OutputType.FILE);
-//
-//        StringBuilder screenshotFolder = (new StringBuilder()).append(System.getProperty("user.dir").append(File.separator).append("Batch_").append(FeatureListener.getBatchCount()).append(File.separator).append(Thread.currentThread().getName()).append(File.separator).append("Screenshots").append(File.separator).append(ExtentListener.getFeatureName()).append(File.separator).append(ExtentListener.getScenarioName());
-//
-//        File screenShotFolder = new File(screenshotFolder.toString());
-//
-//        if (!screenShotFolder.exists()) {
-//            System.out.println("Created screenshot folder as it doesn't exist.");
-//        }
-//
-//        String destinationPath = screenshotFolder.append(File.separator).append(ExtentListener.getScenarioName()).append("_" + ExtentListener.getExampleName()).append("_Step").append(getSeleniumCounter()).append(".png").toString();
-//        File destScreenShotFile = new File(destinationPath);
-//        FileUtils.copyFile(takenScreenShot, destScreenShotFile, false);
-//
-//
-//    }
-//    static int getSeleniumCounter() {
-//        return (Integer)seleniumCounter.get();
-//    }
+    public void takescreenshot(WebDriver driver) throws IOException {
+
+        ++this.stepCounter;
+        int seleniumStepCount = getSeleniumCounter();
+        seleniumCounter.set(seleniumStepCount + 1);
+
+        TakesScreenshot ts = (TakesScreenshot)driver;
+
+        File takenScreenShot = ts.getScreenshotAs(OutputType.FILE);
+
+        StringBuilder screenshotFolder = new StringBuilder()
+                .append(System.getProperty("user.dir"))
+                .append(File.separator)
+                .append("Batch_")
+                .append(File.separator)
+                .append(Thread.currentThread().getName())
+                .append(File.separator)
+                .append("Screenshots")
+                .append(File.separator)
+                .append(File.separator);
+
+        File screenShotFolder = new File(screenshotFolder.toString());
+
+        if (!screenShotFolder.exists()) {
+            System.out.println("Created screenshot folder as it doesn't exist.");
+        }
+
+        String destinationPath = screenshotFolder
+                .append(File.separator)
+                .append("_")
+                .append("_Step").append(getSeleniumCounter())
+                .append(".png")
+                .toString();
+        File destScreenShotFile = new File(destinationPath);
+        FileUtils.copyFile(takenScreenShot, destScreenShotFile, false);
+
+
+    }
+    static int getSeleniumCounter() {
+        return (Integer)seleniumCounter.get();
+    }
 
 }

@@ -1,6 +1,6 @@
 package Runner;
 
-import Steps.DriverManager;
+import DriverManager.DriverManager;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.*;
@@ -15,7 +15,7 @@ import org.testng.annotations.*;
         },
         monochrome = true
 )
-public class TestsRunner extends AbstractTestNGCucumberTests {
+public class TestRunner extends AbstractTestNGCucumberTests {
 
     DriverManager driverManager = new DriverManager();
 

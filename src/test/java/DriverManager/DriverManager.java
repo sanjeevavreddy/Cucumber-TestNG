@@ -1,4 +1,4 @@
-package Steps;
+package DriverManager;
 
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -8,16 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import utils.DataWorkbookManager;
 import utils.ReadPropertiesFile;
 import utils.TestConstants;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class DriverManager {
 
-    DataWorkbookManager dataWorkbookManager = new DataWorkbookManager();
     ReadPropertiesFile readPropertiesFile = new ReadPropertiesFile();
 
 
@@ -49,7 +47,7 @@ public class DriverManager {
             Assert.fail(getBrowser() + " is not supported");
         }
         this.driver().manage().window().maximize();
-        this.driver().manage().timeouts().implicitlyWait(TestConstants.IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
+        this.driver().manage().timeouts().implicitlyWait(Duration.ofSeconds(TestConstants.IMPLICIT_TIMEOUT));
 
     }
 

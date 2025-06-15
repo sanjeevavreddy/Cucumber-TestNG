@@ -1,23 +1,22 @@
 package Steps;
 
+import DriverManager.DriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import utils.CustomMethods;
+import utils.DataWorkbookManager;
 import utils.TestConstants;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class LoginPage extends DriverManager {
-    CustomMethods customMethods = new CustomMethods();
+    DataWorkbookManager dataWorkbookManager = new DataWorkbookManager();
 
-
-    public void launchURL() throws InterruptedException {
-        driver().manage().timeouts().implicitlyWait(TestConstants.IMPLICIT_TIMEOUT, TimeUnit.SECONDS);
+    public void launchURL() {
+        driver().manage().timeouts().implicitlyWait(Duration.ofSeconds(TestConstants.IMPLICIT_TIMEOUT));
         driver().get(TestConstants.URL);
     }
 
-    public void loginUsing(String dataKey) throws IOException {
+    public void loginUsing(String dataKey) {
 
         String UserName = dataWorkbookManager.getReader().getRowDataAsMap(dataWorkbookManager.getWorkSheet(), dataKey).get("USER_ID");
         String Password = dataWorkbookManager.getReader().getRowDataAsMap(dataWorkbookManager.getWorkSheet(), dataKey).get("PASSWORD");

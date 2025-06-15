@@ -1,7 +1,7 @@
 package StepDefinitions;
 
 
-import Steps.DriverManager;
+import DriverManager.DriverManager;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -33,7 +33,7 @@ public class LoginPage {
     }
 
     @Given("^user is ready with Test Data excel \"([^\"]*)\" and sheet \"([^\"]*)\"$")
-    public void userIsReadyWithTestDataExcelAndSheet(String strWorkBook, String strWorkSheet) throws Throwable {
+    public void userIsReadyWithTestDataExcelAndSheet(String strWorkBook, String strWorkSheet) {
 
         dataWorkbookName.set(strWorkBook);
         dataWorkSheetName.set(strWorkSheet);
